@@ -1,9 +1,14 @@
 [versions]
 agp = "8.0.2"
-kotlin = "1.9.0"
+kotlin = "1.9.21"
 nexus-publish = "2.0.0-rc-1"
-android-minSdk = "24"
-android-compileSdk = "33"
+compose = "1.5.11"
+composeCompilerVersion = "1.5.4"
+compose-uitooling = "1.5.4"
+ksp-version = "1.9.21-1.0.16"
+composeImageLoader = "1.7.1"
+napier = "2.6.1"
+buildConfig = "4.1.1"
 
 [libraries]
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
@@ -12,3 +17,7 @@ nexus-publish = { module = "io.github.gradle-nexus.publish-plugin:io.github.grad
 [plugins]
 androidLibrary = { id = "com.android.library", version.ref = "agp" }
 kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
+compose = { id = "org.jetbrains.compose", version.ref = "compose" }
+buildConfig = { id = "com.github.gmazzo.buildconfig", version.ref = "buildConfig" }
+kotlinx-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+com-google-ksp = { id = "com.google.devtools.ksp", version.ref = "ksp-version" }

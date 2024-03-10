@@ -1,3 +1,5 @@
+package dev.afalabarce.kmm.jetpackcompose
+
 val fibi = sequence {
     var a = firstElement
     yield(a)

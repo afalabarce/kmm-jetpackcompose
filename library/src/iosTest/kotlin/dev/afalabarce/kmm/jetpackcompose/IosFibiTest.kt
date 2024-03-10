@@ -1,3 +1,5 @@
+package dev.afalabarce.kmm.jetpackcompose
+
 import kotlin.test.Test
 import kotlin.test.assertEquals
 

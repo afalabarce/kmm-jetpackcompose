@@ -6,7 +6,7 @@ object BuildVersion {
         private const val minorVersion = 0
         private const val bugfixVersion = 0
 
-        const val libraryBasePackage = "dev.afalabarce.kmm.library"
+        const val libraryBasePackage = "dev.afalabarce.kmm.jetpackcompose"
         const val appVersionCode = majorVersion * 1000 + minorVersion * 100 + bugfixVersion
         const val appVersionName = "${majorVersion}.${minorVersion}.$bugfixVersion"
     }
