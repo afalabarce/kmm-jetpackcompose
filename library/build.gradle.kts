@@ -41,6 +41,7 @@ kotlin {
                 implementation(compose.runtime)
                 implementation(compose.material3)
                 implementation(compose.materialIconsExtended)
+                implementation(compose.components.uiToolingPreview)
             }
         }
         val commonTest by getting {

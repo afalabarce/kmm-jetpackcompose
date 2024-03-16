@@ -1,5 +1,6 @@
 package dev.afalabarce.kmm.jetpackcompose
 
+import androidx.compose.foundation.gestures.awaitEachGesture
 import androidx.compose.foundation.gestures.awaitFirstDown
 import androidx.compose.foundation.layout.Box
 import androidx.compose.runtime.*
@@ -53,37 +54,36 @@ fun DrawCanvas(
     val canvasModifier = modifier
         .pointerInput(Unit) {
             awaitEachGesture {
-                awaitPointerEventScope {
-                    // Wait for at least one pointer to press down, and set first contact position
-                    awaitFirstDown().also {
+                // Wait for at least one pointer to press down, and set first contact position
+                awaitFirstDown().also {
+                    motionEvent = DrawAction.Down
+                    currentPosition = it.position
+                    previousPosition = currentPosition
+                }
+
+                do {
+                    // This PointerEvent contains details including events, id, position and more
+                    val event: PointerEvent = awaitPointerEvent()
+                    if (currentPosition == Offset.Unspecified) {
                         motionEvent = DrawAction.Down
-                        currentPosition = it.position
+                        currentPosition = event.changes.first().position
                         previousPosition = currentPosition
                     }
+                    event.changes
+                        .forEachIndexed { _: Int, pointerInputChange: PointerInputChange ->
 
-                    do {
-                        // This PointerEvent contains details including events, id, position and more
-                        val event: PointerEvent = awaitPointerEvent()
-                        if (currentPosition == Offset.Unspecified) {
-                            motionEvent = DrawAction.Down
-                            currentPosition = event.changes.first().position
-                            previousPosition = currentPosition
+                            // This necessary to prevent other gestures or scrolling
+                            // when at least one pointer is down on canvas to draw
+                            if (pointerInputChange.positionChange() != Offset.Zero) pointerInputChange.consume()
                         }
-                        event.changes
-                            .forEachIndexed { _: Int, pointerInputChange: PointerInputChange ->
+                    motionEvent = DrawAction.Move
+                    currentPosition = event.changes.first().position
+                } while (event.changes.any { it.pressed })
 
-                                // This necessary to prevent other gestures or scrolling
-                                // when at least one pointer is down on canvas to draw
-                                if (pointerInputChange.positionChange() != Offset.Zero) pointerInputChange.consume()
-                            }
-                        motionEvent = DrawAction.Move
-                        currentPosition = event.changes.first().position
-                    } while (event.changes.any { it.pressed })
-
-                    motionEvent = DrawAction.Up
-                }
+                motionEvent = DrawAction.Up
             }
         }
+
 
     Box(modifier = canvasModifier.drawBehind {
         when (motionEvent) {
