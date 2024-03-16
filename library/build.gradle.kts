@@ -30,6 +30,12 @@ kotlin {
     iosSimulatorArm64()
 
     sourceSets {
+        val androidMain by getting {
+            dependencies {
+                implementation(libs.android.core.ktx)
+            }
+        }
+
         val commonMain by getting {
             dependencies {
                 implementation(compose.runtime)
