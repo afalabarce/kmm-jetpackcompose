@@ -54,7 +54,7 @@ fun LabelledSwitch(
 
 @Preview
 @Composable
-fun PreviewSwitchChecked() {
+private fun PreviewSwitchChecked() {
     Surface {
         Column {
             LabelledSwitch(
@@ -70,7 +70,7 @@ fun PreviewSwitchChecked() {
 
 @Preview
 @Composable
-fun PreviewSwitchUnChecked() {
+private fun PreviewSwitchUnChecked() {
     Surface {
         Column {
             LabelledSwitch(
