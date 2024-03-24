@@ -6,6 +6,7 @@ import androidx.compose.ui.text.input.OffsetMapping
 import androidx.compose.ui.text.input.TransformedText
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.intl.Locale
+import dev.afalabarce.kmm.jetpackcompose.extensions.isValidDecimal
 import dev.afalabarce.kmm.jetpackcompose.utilities.MPDecimalFormatSymbols
 
 @Stable
@@ -112,15 +113,6 @@ class AmountVisualTransformation(
     private fun Int?.safeNull() = this ?: Zero
 
     private fun String.isValid(): Boolean = (isNotEmpty() && startCorrect() && this.isValidDecimal())
-
-    private fun String.isValidDecimal(): Boolean = try {
-        val commaReplaced = this.replace(Comma, Dot)
-        val correctDecimal = commaReplaced.replace(decimalSeparator, Dot)
-        BigDecimal(correctDecimal)
-        true
-    } catch (exception: NumberFormatException) {
-        false
-    }
 
     private fun String.startCorrect(): Boolean {
         val regex = Regex(StartRegex)

@@ -83,73 +83,76 @@ fun DrawCanvas(
                 motionEvent = DrawAction.Up
             }
         }
+    var scaleWidth by remember { mutableStateOf(0f) }
+    var scaleHeight by remember { mutableStateOf(0f) }
+    val scaledWaterMark = waterMark?.scale(scaleWidth, scaleHeight)
 
+    Box(modifier = canvasModifier
+        .graphicsLayer {
+            scaleWidth = size.width
+            scaleHeight = size.height
+        }
+        .drawBehind {
+            when (motionEvent) {
+                DrawAction.Down -> {
+                    if (currentPosition.x != 0f && currentPosition.y != 0f)
+                        path.moveTo(currentPosition.x, currentPosition.y)
+                    previousPosition = currentPosition
+                }
 
-    Box(modifier = canvasModifier.drawBehind {
-        when (motionEvent) {
-            DrawAction.Down -> {
-                if (currentPosition.x != 0f && currentPosition.y != 0f)
-                    path.moveTo(currentPosition.x, currentPosition.y)
-                previousPosition = currentPosition
+                DrawAction.Move -> {
+                    if (currentPosition != Offset.Unspecified && currentPosition.x != 0f && currentPosition.y != 0f) {
+                        //path.lineTo(currentPosition.x, currentPosition.y)
+                        path.quadraticBezierTo(
+                            previousPosition.x,
+                            previousPosition.y,
+                            (previousPosition.x + currentPosition.x) / 2,
+                            (previousPosition.y + currentPosition.y) / 2
+                        )
+                    }
+                    previousPosition = currentPosition
+                }
+
+                DrawAction.Up -> {
+                    path.lineTo(currentPosition.x, currentPosition.y)
+                    // Change state to idle to not draw in wrong position if recomposition happens
+                    currentPosition = Offset.Unspecified
+                    previousPosition = currentPosition
+                    motionEvent = DrawAction.Idle
+                }
+
+                else -> Unit
             }
+            val drawingBitmap = ImageBitmap(size.width.toInt(), size.height.toInt(), ImageBitmapConfig.Argb8888)
+            val drawingCanvas = Canvas(drawingBitmap)
 
-            DrawAction.Move -> {
-                if (currentPosition != Offset.Unspecified && currentPosition.x != 0f && currentPosition.y != 0f) {
-                    //path.lineTo(currentPosition.x, currentPosition.y)
-                    path.quadraticBezierTo(
-                        previousPosition.x,
-                        previousPosition.y,
-                        (previousPosition.x + currentPosition.x) / 2,
-                        (previousPosition.y + currentPosition.y) / 2
+            if (!erase) {
+                if (!waterMarkOnFront && scaledWaterMark != null) {
+                    drawingCanvas.drawImage(
+                        scaledWaterMark,
+                        Offset(0f, 0f),
+                        painter
                     )
                 }
-                previousPosition = currentPosition
-            }
 
-            DrawAction.Up -> {
-                path.lineTo(currentPosition.x, currentPosition.y)
-                // Change state to idle to not draw in wrong position if recomposition happens
-                currentPosition = Offset.Unspecified
-                previousPosition = currentPosition
-                motionEvent = DrawAction.Idle
-            }
+                drawingCanvas.drawPath(
+                    path,
+                    painter
+                )
 
-            else -> Unit
-        }
-        val drawingBitmap = ImageBitmap(size.width.toInt(), size.height.toInt(), ImageBitmapConfig.Argb8888)
-        val drawingCanvas = Canvas(drawingBitmap)
-
-        if (!erase) {
-            if (!waterMarkOnFront) {
-                waterMark?.let { mark ->
+                if (!waterMarkOnFront && scaledWaterMark != null) {
                     drawingCanvas.drawImage(
-                        mark.scale(size.width, size.height),
+                        scaledWaterMark,
                         Offset(0f, 0f),
                         painter
                     )
                 }
             }
 
-            drawingCanvas.drawPath(
-                path,
-                painter
-            )
+            drawImage(drawingBitmap)
+            val msBmp: IntArray = intArrayOf()
 
-            if (!waterMarkOnFront) {
-                waterMark?.let { mark ->
-                    drawingCanvas.drawImage(
-                        mark.scale(size.width, size.height),
-                        Offset(0f, 0f),
-                        painter
-                    )
-                }
-            }
-        }
-
-        drawImage(drawingBitmap)
-        val msBmp: IntArray = intArrayOf()
-
-        drawingBitmap.readPixels(msBmp)
-        onDraw(msBmp)
-    })
+            drawingBitmap.readPixels(msBmp)
+            onDraw(msBmp)
+        })
 }

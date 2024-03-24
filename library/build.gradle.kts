@@ -4,7 +4,6 @@ plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidLibrary)
     alias(libs.plugins.compose)
-    alias(libs.plugins.buildConfig)
     alias(libs.plugins.kotlinx.serialization)
     alias(libs.plugins.com.google.ksp)
     id("module.publication")
@@ -42,11 +41,6 @@ kotlin {
                 implementation(compose.material3)
                 implementation(compose.materialIconsExtended)
                 implementation(compose.components.uiToolingPreview)
-            }
-        }
-        val commonTest by getting {
-            dependencies {
-                implementation(libs.kotlin.test)
             }
         }
 
@@ -94,9 +88,4 @@ android {
 
 task("testClasses").doLast {
     println("This is a dummy testClasses task")
-}
-
-buildConfig {
-// BuildConfig configuration here.
-// https://github.com/gmazzo/gradle-buildconfig-plugin#usage-in-kts
 }

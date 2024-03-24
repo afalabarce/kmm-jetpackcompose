@@ -31,9 +31,9 @@ actual class MPDecimalFormatSymbols {
     actual val internationalCurrencySymbol: String
         get() = decimalSymbols.internationalCurrencySymbol
     actual val monetaryDecimalSeparator: Char
-        get() = decimalSymbols.monetaryDecimalSeparator
+        get() = decimalSymbols.decimalSeparator
     actual val monetaryGroupingSeparator: Char
-        get() = decimalSymbols.monetaryGroupingSeparator
+        get() = decimalSymbols.groupingSeparator
     actual val exponentialSeparator: String
         get() = decimalSymbols.exponentSeparator
 
