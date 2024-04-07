@@ -3,9 +3,21 @@ package dev.afalabarce.kmm.jetpackcompose.localcomposition
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.compositionLocalOf
 
-data class MPConfiguration(val isPortrait: Boolean)
+enum class ScreenOrientation {
+    PORTRAIT,
+    LANDSCAPE,
+    DESKTOP
+}
 
-val LocalKmpConfiguration = compositionLocalOf { MPConfiguration(false) }
+data class MPConfiguration(
+    val screenOrientation: ScreenOrientation,
+)
+
+val LocalKmpConfiguration = compositionLocalOf {
+    MPConfiguration(
+        screenOrientation = ScreenOrientation.PORTRAIT,
+    )
+}
 
 @Composable
 expect fun setUiContent(content: @Composable () -> Unit)

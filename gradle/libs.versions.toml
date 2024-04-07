@@ -10,11 +10,13 @@ composeImageLoader = "1.7.1"
 napier = "2.6.1"
 buildConfig = "4.1.1"
 core-ktx = "1.10.1"
+accompanist-permissions = "0.35.0-alpha"
 
 [libraries]
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
 nexus-publish = { module = "io.github.gradle-nexus.publish-plugin:io.github.gradle-nexus.publish-plugin.gradle.plugin", version.ref = "nexus-publish" }
 android-core-ktx = { module = "androidx.core:core-ktx", version.ref = "core-ktx" }
+accompanist-permission-android = { module = "com.google.accompanist:accompanist-permissions", version.ref = "accompanist-permissions" }
 [plugins]
 androidLibrary = { id = "com.android.library", version.ref = "agp" }
 kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }

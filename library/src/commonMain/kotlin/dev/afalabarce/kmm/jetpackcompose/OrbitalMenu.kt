@@ -27,6 +27,7 @@ import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import dev.afalabarce.kmm.jetpackcompose.localcomposition.LocalKmpConfiguration
+import dev.afalabarce.kmm.jetpackcompose.localcomposition.ScreenOrientation
 import kotlin.math.cos
 import kotlin.math.sin
 
@@ -41,10 +42,10 @@ enum class SatellitePosition(private val value: Int) {
     NORTH_WEST(7);
 
     operator fun inc(): SatellitePosition =
-        SatellitePosition.values().first { x -> x.value == (this.value + 1) % SatellitePosition.values().size }
+        entries.first { x -> x.value == (this.value + 1) % entries.size }
 
     operator fun plus(intValue: Int): SatellitePosition =
-        SatellitePosition.values().first { x -> x.value == (this.value + intValue) % SatellitePosition.values().size }
+        entries.first { x -> x.value == (this.value + intValue) % entries.size }
 }
 
 data class Satellite(
@@ -133,7 +134,7 @@ fun OrbitalMenu(
 
                             orbit to (
                                     (if (orbit == 1) coreSize.value else coreSize.value * 0.5f) + (
-                                            if (screenConfig.isPortrait)
+                                            if (screenConfig.screenOrientation == ScreenOrientation.PORTRAIT)
                                                 screenSize.width
                                             else
                                                 screenSize.height

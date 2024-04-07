@@ -10,7 +10,7 @@ actual fun setUiContent(content: @Composable () -> Unit) {
     val configuration = LocalConfiguration.current
     CompositionLocalProvider(
         LocalKmpConfiguration provides MPConfiguration(
-            isPortrait = configuration.orientation == Configuration.ORIENTATION_PORTRAIT
+            screenOrientation = if (configuration.orientation == Configuration.ORIENTATION_PORTRAIT) ScreenOrientation.PORTRAIT else ScreenOrientation.LANDSCAPE,
         )
     ) {
         content()

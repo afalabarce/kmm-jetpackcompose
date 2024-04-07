@@ -32,6 +32,7 @@ kotlin {
         val androidMain by getting {
             dependencies {
                 implementation(libs.android.core.ktx)
+                implementation(libs.accompanist.permission.android)
             }
         }
 

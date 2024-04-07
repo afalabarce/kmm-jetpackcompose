@@ -7,7 +7,7 @@ import androidx.compose.runtime.CompositionLocalProvider
 actual fun setUiContent(content: @Composable () -> Unit) {
     CompositionLocalProvider(
         LocalKmpConfiguration provides MPConfiguration(
-            isPortrait = false
+            screenOrientation = ScreenOrientation.DESKTOP
         )
     ) {
         content()
