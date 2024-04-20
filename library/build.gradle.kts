@@ -1,4 +1,5 @@
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
+import org.jetbrains.kotlin.gradle.plugin.mpp.apple.XCFramework
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
@@ -6,6 +7,8 @@ plugins {
     alias(libs.plugins.compose)
     alias(libs.plugins.kotlinx.serialization)
     alias(libs.plugins.com.google.ksp)
+    //alias(libs.plugins.native.cocoapods)
+    kotlin("native.cocoapods")
     id("module.publication")
 }
 
@@ -23,10 +26,20 @@ kotlin {
     }
 
     jvm()
+    //https://github.com/ashleymills/Reachability.swift
+    val xcframeworkName = "ReachabilitySwift"
+    val xcf = XCFramework(xcframeworkName)
 
     iosX64()
     iosArm64()
     iosSimulatorArm64()
+
+    cocoapods {
+        ios.deploymentTarget = "12.0"
+        pod("Reachability") {
+            version = "3.2"
+        }
+    }
 
     sourceSets {
         val androidMain by getting {

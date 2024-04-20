@@ -1,11 +1,11 @@
 [versions]
 agp = "8.0.2"
-kotlin = "1.9.21"
+kotlin = "1.9.23"
 nexus-publish = "2.0.0-rc-1"
-compose = "1.6.0"
+compose = "1.6.2"
 composeCompilerVersion = "1.5.4"
 compose-uitooling = "1.5.4"
-ksp-version = "1.9.21-1.0.16"
+ksp-version = "1.9.23-1.0.20"
 composeImageLoader = "1.7.1"
 napier = "2.6.1"
 buildConfig = "4.1.1"
@@ -17,6 +17,7 @@ kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotl
 nexus-publish = { module = "io.github.gradle-nexus.publish-plugin:io.github.gradle-nexus.publish-plugin.gradle.plugin", version.ref = "nexus-publish" }
 android-core-ktx = { module = "androidx.core:core-ktx", version.ref = "core-ktx" }
 accompanist-permission-android = { module = "com.google.accompanist:accompanist-permissions", version.ref = "accompanist-permissions" }
+
 [plugins]
 androidLibrary = { id = "com.android.library", version.ref = "agp" }
 kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
@@ -24,3 +25,4 @@ compose = { id = "org.jetbrains.compose", version.ref = "compose" }
 buildConfig = { id = "com.github.gmazzo.buildconfig", version.ref = "buildConfig" }
 kotlinx-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 com-google-ksp = { id = "com.google.devtools.ksp", version.ref = "ksp-version" }
+native-cocoapods = { id = "org.jetbrains.kotlin.native.cocoapods", version.ref = "kotlin" }
