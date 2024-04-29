@@ -53,6 +53,7 @@ kotlin {
             dependencies {
                 implementation(compose.runtime)
                 implementation(compose.material3)
+                implementation(compose.foundation)
                 implementation(compose.materialIconsExtended)
                 implementation(compose.components.uiToolingPreview)
                 implementation(libs.constraint.layout)
