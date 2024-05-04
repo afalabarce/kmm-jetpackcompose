@@ -14,7 +14,6 @@ import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import androidx.constraintlayout.compose.ConstraintLayout
 
 @Composable
 fun <T> SpinnerSelector(
@@ -56,39 +55,14 @@ fun <T> SpinnerSelector(
             colors = colors,
             border = border,
         ) {
-            ConstraintLayout(
+            Row(
                 modifier = Modifier.fillMaxSize(),
+                verticalAlignment = Alignment.CenterVertically
             ) {
-                val (spinnerItem, spinnerIcon) = createRefs()
-
-                Icon(
-                    imageVector = if (expandedDropDown)
-                        expandedTrailingIcon ?: Icons.Rounded.ArrowDropUp
-                    else
-                        collapsedTrailingIcon ?: Icons.Rounded.ArrowDropDown,
-                    contentDescription = null,
-                    tint = trailingIconTint,
-                    modifier = Modifier.size(32.dp).constrainAs(spinnerIcon) {
-                        top.linkTo(parent.top)
-                        bottom.linkTo(parent.bottom)
-                        end.linkTo(parent.end)
-                    }.focusable(false)
-                        .clickable(true) {
-                            if (!readOnly)
-                                expandedDropDown = !expandedDropDown
-                        }
-                )
-
                 Column(
                     modifier = Modifier
-                        .constrainAs(spinnerItem) {
-                            top.linkTo(parent.top)
-                            bottom.linkTo(parent.bottom)
-                            start.linkTo(parent.start)
-                            end.linkTo(spinnerIcon.start)
-                        }
-                        .fillMaxWidth(0.93f)
-                        .fillMaxSize(),
+                        .weight(1f)
+                        .fillMaxHeight(),
                     verticalArrangement = Arrangement.Center,
                     horizontalAlignment = Alignment.Start
                 ) {
@@ -97,6 +71,19 @@ fun <T> SpinnerSelector(
                     else
                         itemComposable(spinnerValue!!)
                 }
+                Icon(
+                    imageVector = if (expandedDropDown)
+                        expandedTrailingIcon ?: Icons.Rounded.ArrowDropUp
+                    else
+                        collapsedTrailingIcon ?: Icons.Rounded.ArrowDropDown,
+                    contentDescription = null,
+                    tint = trailingIconTint,
+                    modifier = Modifier.size(32.dp).focusable(false)
+                        .clickable(true) {
+                            if (!readOnly)
+                                expandedDropDown = !expandedDropDown
+                        }
+                )
             }
 
             DropdownMenu(expanded = expandedDropDown,

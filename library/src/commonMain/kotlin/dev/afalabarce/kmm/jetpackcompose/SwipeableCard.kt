@@ -1,7 +1,7 @@
-@file:OptIn(ExperimentalFoundationApi::class)
+//@file:OptIn(ExperimentalFoundationApi::class)
 
 package dev.afalabarce.kmm.jetpackcompose
-
+/*
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.ExperimentalFoundationApi
@@ -310,7 +310,8 @@ fun SwipeableCardPreview() {
     SwipeableCard(
         modifier = Modifier.fillMaxWidth(),
         buttonWidth = 82.dp
-    ){
-            Text("Swipeable Card")
+    ) {
+        Text("Swipeable Card")
     }
 }
+*/

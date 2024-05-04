@@ -2,7 +2,7 @@
 agp = "8.0.2"
 kotlin = "1.9.23"
 nexus-publish = "2.0.0-rc-1"
-compose = "1.6.2"
+compose = "1.6.10-beta01"
 composeCompilerVersion = "1.5.4"
 compose-uitooling = "1.5.4"
 ksp-version = "1.9.23-1.0.20"

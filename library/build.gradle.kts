@@ -41,7 +41,21 @@ kotlin {
         }
     }
 
+    targets.configureEach {
+        compilations.configureEach {
+            compilerOptions.configure {
+                freeCompilerArgs.add("-Xexpect-actual-classes")
+            }
+        }
+    }
+
     sourceSets {
+        all {
+            languageSettings {
+                optIn("kotlin.experimental.ExperimentalNativeApi")
+            }
+        }
+
         val androidMain by getting {
             dependencies {
                 implementation(libs.android.core.ktx)
@@ -54,9 +68,10 @@ kotlin {
                 implementation(compose.runtime)
                 implementation(compose.material3)
                 implementation(compose.foundation)
+                implementation(compose.animation)
                 implementation(compose.materialIconsExtended)
                 implementation(compose.components.uiToolingPreview)
-                implementation(libs.constraint.layout)
+                //implementation(libs.constraint.layout)
             }
         }
 
