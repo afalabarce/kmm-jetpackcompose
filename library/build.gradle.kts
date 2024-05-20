@@ -52,6 +52,8 @@ kotlin {
     sourceSets {
         all {
             languageSettings {
+                optIn("kotlin.RequiresOptIn")
+                optIn("kotlinx.coroutines.ExperimentalCoroutinesApi")
                 optIn("kotlin.experimental.ExperimentalNativeApi")
             }
         }
@@ -65,7 +67,11 @@ kotlin {
 
         val commonMain by getting {
             dependencies {
-                implementation(compose.runtime)
+                // Moved from implementation to api due to below issue
+                // https://issuetracker.google.com/issues/294869453
+                // https://github.com/JetBrains/compose-multiplatform/issues/3927
+                api(compose.runtime)
+                implementation(compose.ui)
                 implementation(compose.material3)
                 implementation(compose.foundation)
                 implementation(compose.animation)

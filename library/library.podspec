@@ -46,5 +46,5 @@ Pod::Spec.new do |spec|
             SCRIPT
         }
     ]
-    spec.resources = ['build/compose/ios/library/compose-resources']
+    spec.resources = ['build/compose/cocoapods/compose-resources']
 end

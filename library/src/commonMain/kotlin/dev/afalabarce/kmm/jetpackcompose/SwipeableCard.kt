@@ -1,7 +1,7 @@
-//@file:OptIn(ExperimentalFoundationApi::class)
+@file:OptIn(ExperimentalFoundationApi::class)
 
 package dev.afalabarce.kmm.jetpackcompose
-/*
+
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.ExperimentalFoundationApi
@@ -161,8 +161,7 @@ fun SwipeableCard(
     onClickSwipeAction: (SwipeAction) -> Unit = { },
     content: @Composable ColumnScope.() -> Unit
 ) {
-
-    val draggableState = rememberSaveable(
+    val draggableState: AnchoredDraggableState<Int> = rememberSaveable(
         systemDensity(),
         saver = AnchoredDraggableState.Saver(
             animationSpec = tween(),
@@ -176,7 +175,7 @@ fun SwipeableCard(
             velocityThreshold = { 0.3f },
             animationSpec = tween(),
         ).apply {
-            anchors?.let { newAnchors -> updateAnchors(newAnchors) }
+            anchors?.let { newAnchors: DraggableAnchors<Int> -> updateAnchors(newAnchors) }
         }
     }
 
@@ -309,9 +308,9 @@ fun SwipeableCardPreview() {
 
     SwipeableCard(
         modifier = Modifier.fillMaxWidth(),
-        buttonWidth = 82.dp
+        buttonWidth = 82.dp,
+        swipeActions = actions,
     ) {
         Text("Swipeable Card")
     }
 }
-*/
